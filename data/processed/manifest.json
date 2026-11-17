@@ -1,0 +1,178 @@
+{
+  "format_version": 1,
+  "sample_count": 13,
+  "regions": {
+    "2_MH_guangjingmeng": 3,
+    "3_MH_mangda": 5,
+    "4_MH_8haoshuiku": 5
+  },
+  "source_snapshot": "Data_T_all.pkl",
+  "source_sha256": "828517731908bd668983abcd8f4eb46fc4fba56ddea2eb3e44722ea8475d86b5",
+  "selection": "Only the model inputs and quality labels of gardens 2, 3, and 4.",
+  "files": {
+    "2_MH_guangjingmeng/Q01/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "2924291b66cd4bc0186f2cc1de6cc4be0c1a8e7300f3b51f4ce99a8944656a4c"
+    },
+    "2_MH_guangjingmeng/Q01/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "282b688c644377d3493a62a921250aa9f3ef571b267e7bf23c8506ef79cbafa7"
+    },
+    "2_MH_guangjingmeng/Q01/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "a03213f09bbcd488893928830e1094eacaefe7a80ebefa8e1d4c73580d49c9dd"
+    },
+    "2_MH_guangjingmeng/Q02/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "03e0593d4e6e03da4bba3b4f3844247fa74c726014a5366b49c11957152d1dd8"
+    },
+    "2_MH_guangjingmeng/Q02/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "1cd0e9d875751b0797bb3f84b8693a968c9f397722c72d9b056d700d4227cfb6"
+    },
+    "2_MH_guangjingmeng/Q02/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "ded64a7a039fdc3b3984879ce9f82049a52748347dc4f0f96359ec4f7d634030"
+    },
+    "2_MH_guangjingmeng/Q04/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "40a2c86c7ec8ed4ffdb305d5fe10179b0eb97163131216c8380e8fb198d4915d"
+    },
+    "2_MH_guangjingmeng/Q04/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "a6c7fc14ae9bffa1b121b859f030638ce2ae7c9f9095f6ba83aac00597a5654c"
+    },
+    "2_MH_guangjingmeng/Q04/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "173cb4c61f1495436b9556cdfe0c46604029cf661afef0b8349f50a91b5a006c"
+    },
+    "3_MH_mangda/Q01/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "312677b80304cbce27059d4e0285bb2c78e62c398c3f82b8591c4e29aeac4b4c"
+    },
+    "3_MH_mangda/Q01/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "5f4603cb581c346f4f51ed5e30a5568b9408bfbac6e650f6a7a4a92d19014c9d"
+    },
+    "3_MH_mangda/Q01/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "e9673ba62696d335e65946afc6c64f6091a483dd651652e40ddd30dfce415983"
+    },
+    "3_MH_mangda/Q02/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "08b4c4b7cd440006b0f29a4b9565c404ff5c670378b9a960b08050dc81926e83"
+    },
+    "3_MH_mangda/Q02/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "4c37a292dead751f48680d69b885ee5dba7013e48a944596861be322d0049734"
+    },
+    "3_MH_mangda/Q02/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "e0b6a59d85ca01a19df834ea827369606c668872ec65eb36d1040c38d828c616"
+    },
+    "3_MH_mangda/Q03/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "28c9a2a921aaa82a4c02bf0a8677f2f048eac0d3950cf353304b10673a338f26"
+    },
+    "3_MH_mangda/Q03/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "672c4faf37d75f481c971a924a1c6b1245ee2ac72a41e1acbc004ddd697b8ae2"
+    },
+    "3_MH_mangda/Q03/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "c75b9eee37126c8165f33c657d07425c9e2c0025afea75f337bf38f7960696f2"
+    },
+    "3_MH_mangda/Q04/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "e3c13bfe764a90ebf7fd54e96d10869dec2b7f25e9d1a23f87089ae303201406"
+    },
+    "3_MH_mangda/Q04/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "f2ba7de9fd9d2bb851b98ac1fa37c59e331bd83c1ed1d5a53fa79bbb7eb2d65c"
+    },
+    "3_MH_mangda/Q04/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "dd3c093e9a736718e7520c7af8e868b671a7fdc8329c630fa6183474e1c7b0ae"
+    },
+    "3_MH_mangda/Q05/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "73eb94866dcd506d6c5fddc9d7666de579e6e87a8a3cd8b6128499848b2e9344"
+    },
+    "3_MH_mangda/Q05/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "05664236eb745742d626309c9c2b82dac2898c6bd713c0e939dfe35584f424c3"
+    },
+    "3_MH_mangda/Q05/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "2444ad61974185b8066bea4ec4f166c4951f3bc6b38708d7384a9dc18bd02b37"
+    },
+    "4_MH_8haoshuiku/Q01/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "d1fd846666023008d4f947a128019c2e1df2cb445127bdc3394578055dc92097"
+    },
+    "4_MH_8haoshuiku/Q01/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "74335ac5bd4c9a5dc80859d9fd2de4f8fd298a5c7c7936913d25a8ec652ab1ed"
+    },
+    "4_MH_8haoshuiku/Q01/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "5beb451169e03deabffd18d45abc11359703f22467629e27ef1c7d7957118648"
+    },
+    "4_MH_8haoshuiku/Q02/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "8e0fe38a2576b9621a5857068a83601a3eeb0073fa56814c78aab2c8bcf9c44c"
+    },
+    "4_MH_8haoshuiku/Q02/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "b6ca2bcc214fe6f24d34f07864f81bd2f00a6f36abf8f3d516b2cc43a4f00a6c"
+    },
+    "4_MH_8haoshuiku/Q02/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "2df213db17960736220e61a5ca24120b5d988727ad1582824905c3ace998245b"
+    },
+    "4_MH_8haoshuiku/Q03/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "4314e5e396fc03a8616db000eb736137b243be5fe754a9bff9f12864b970e955"
+    },
+    "4_MH_8haoshuiku/Q03/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "3bd5c938532a75720b4d3d5880cabc259eedcafdfa314a769c705e8bad3d5201"
+    },
+    "4_MH_8haoshuiku/Q03/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "73ad861aa88fa8d430a3859ff0f2dd253cc579c141ca8900c46df62a90afc248"
+    },
+    "4_MH_8haoshuiku/Q04/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "ec59e6a1c71494877b96438753aad7fb5a398b2066b973fcc89a7575136856c4"
+    },
+    "4_MH_8haoshuiku/Q04/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "2b48adeff03fa98d5d8e95908cc1579eb310c5b5bac6a570700f7261e3a64efe"
+    },
+    "4_MH_8haoshuiku/Q04/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "7a2f62232dd40a3153689db57987b40a14f8d64dca35d99bf42fcec440a9c269"
+    },
+    "4_MH_8haoshuiku/Q05/back_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "6db17d3423592b97eb5986a7f7a187157619d3f1ce5d04b68ea62bdd7476586f"
+    },
+    "4_MH_8haoshuiku/Q05/front_rgb_image.npy": {
+      "bytes": 602240,
+      "sha256": "6286cc641008f525148204abdcf5d2494083b3a978d15605a4bc2be0ad03f456"
+    },
+    "4_MH_8haoshuiku/Q05/MSS.npy": {
+      "bytes": 79328,
+      "sha256": "fcc1e7688f910cd28e1b6fedb676ca4491aeffe6f6e90d3ec671e29c2330dc4d"
+    },
+    "samples.csv": {
+      "bytes": 13796,
+      "sha256": "92033da337f6dc1a86370176b0cbb6a42304194e2108e159af610bfb374d395d"
+    },
+    "schema.json": {
+      "bytes": 6461,
+      "sha256": "56862bff1b5173411d30bd03a1a69c851ea33c175596a2fd45285527417fefb6"
+    }
+  }
+}

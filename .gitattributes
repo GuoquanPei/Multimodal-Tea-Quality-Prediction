@@ -1,0 +1,5 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+# Preserve exact dataset bytes so SHA-256 checks work on every operating system.
+data/processed/** -text

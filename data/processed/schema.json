@@ -1,0 +1,311 @@
+{
+  "version": 1,
+  "arrays": {
+    "MSS": {
+      "shape": [
+        4,
+        45,
+        110
+      ],
+      "dtype": "float32",
+      "bands": [
+        "Green",
+        "NIR",
+        "Red",
+        "RedEdge"
+      ],
+      "processing": "Cropped and resized CHW snapshot; original numerical scale, no global min/max fitting."
+    },
+    "front_rgb_image": {
+      "shape": [
+        3,
+        224,
+        224
+      ],
+      "dtype": "float32",
+      "channels": [
+        "R",
+        "G",
+        "B"
+      ],
+      "processing": "Resized to 224x224; RGB / 255 then ImageNet channel normalization.",
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "back_rgb_image": {
+      "shape": [
+        3,
+        224,
+        224
+      ],
+      "dtype": "float32",
+      "channels": [
+        "R",
+        "G",
+        "B"
+      ],
+      "processing": "Resized to 224x224; RGB / 255 then ImageNet channel normalization.",
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    }
+  },
+  "quality_columns": [
+    {
+      "column": "quality_01",
+      "name": "水浸出物",
+      "unit": null
+    },
+    {
+      "column": "quality_02",
+      "name": "氨基酸",
+      "unit": null
+    },
+    {
+      "column": "quality_03",
+      "name": "咖啡碱",
+      "unit": null
+    },
+    {
+      "column": "quality_04",
+      "name": "茶多酚",
+      "unit": null
+    },
+    {
+      "column": "quality_05",
+      "name": "EGC",
+      "unit": null
+    },
+    {
+      "column": "quality_06",
+      "name": "C",
+      "unit": null
+    },
+    {
+      "column": "quality_07",
+      "name": "EC",
+      "unit": null
+    },
+    {
+      "column": "quality_08",
+      "name": "EGCG",
+      "unit": null
+    },
+    {
+      "column": "quality_09",
+      "name": "ECG",
+      "unit": null
+    },
+    {
+      "column": "quality_10",
+      "name": "天冬氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_11",
+      "name": "苏氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_12",
+      "name": "丝氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_13",
+      "name": "天冬酰胺",
+      "unit": null
+    },
+    {
+      "column": "quality_14",
+      "name": "谷氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_15",
+      "name": "谷氨酰胺",
+      "unit": null
+    },
+    {
+      "column": "quality_16",
+      "name": "茶氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_17",
+      "name": "脯氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_18",
+      "name": "甘氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_19",
+      "name": "丙氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_20",
+      "name": "缬氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_21",
+      "name": "胱氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_22",
+      "name": "蛋氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_23",
+      "name": "异亮氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_24",
+      "name": "亮氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_25",
+      "name": "酪氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_26",
+      "name": "苯丙氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_27",
+      "name": "γ氨基丁酸",
+      "unit": null
+    },
+    {
+      "column": "quality_28",
+      "name": "组氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_29",
+      "name": "赖氨酸",
+      "unit": null
+    },
+    {
+      "column": "quality_30",
+      "name": "精氨酸",
+      "unit": null
+    }
+  ],
+  "soil_columns": [
+    {
+      "column": "soil_01",
+      "name_and_unit": "pH值"
+    },
+    {
+      "column": "soil_02",
+      "name_and_unit": "有机质 (g/kg)"
+    },
+    {
+      "column": "soil_03",
+      "name_and_unit": "水解性氮 (N,mg/kg)"
+    },
+    {
+      "column": "soil_04",
+      "name_and_unit": "有效磷 (P,mg/kg)"
+    },
+    {
+      "column": "soil_05",
+      "name_and_unit": "速效钾 (K,mg/kg)"
+    },
+    {
+      "column": "soil_06",
+      "name_and_unit": "有效锌 (Zn,mg/kg)"
+    },
+    {
+      "column": "soil_07",
+      "name_and_unit": "有效锰 (Mn,mg/kg)"
+    },
+    {
+      "column": "soil_08",
+      "name_and_unit": "有效铁 (Fe,mg/kg)"
+    },
+    {
+      "column": "soil_09",
+      "name_and_unit": "有效铜 (Cu,mg/kg)"
+    },
+    {
+      "column": "soil_10",
+      "name_and_unit": "有效硼 (B,mg/kg)"
+    },
+    {
+      "column": "soil_11",
+      "name_and_unit": "有效硫 (S,mg/kg)"
+    },
+    {
+      "column": "soil_12",
+      "name_and_unit": "有效钼(Mo,mg/kg)"
+    },
+    {
+      "column": "soil_13",
+      "name_and_unit": "交换性钙 (Ca,mg/kg)"
+    },
+    {
+      "column": "soil_14",
+      "name_and_unit": "交换性镁 (Mg,mg/kg)"
+    },
+    {
+      "column": "soil_15",
+      "name_and_unit": "阳离子交换量(cmol/kg(+))"
+    },
+    {
+      "column": "soil_16",
+      "name_and_unit": "水溶性盐总量(g/kg)"
+    }
+  ],
+  "weather_columns": {
+    "weather_01": "annual_growing_degree_days",
+    "weather_02": "annual_mean_temperature",
+    "weather_03": "annual_mean_daily_temperature_range",
+    "weather_04": "annual_total_precipitation",
+    "weather_05": "annual_mean_dew_point_temperature",
+    "weather_06": "annual_mean_solar_radiation"
+  },
+  "lcc_n_columns": {
+    "lcc_n_01": "chlorophyll_mean",
+    "lcc_n_02": "chlorophyll_sample_std",
+    "lcc_n_03": "chlorophyll_population_std",
+    "lcc_n_04": "chlorophyll_sample_variance",
+    "lcc_n_05": "chlorophyll_population_variance",
+    "lcc_n_06": "chlorophyll_median",
+    "lcc_n_07": "nitrogen_mean",
+    "lcc_n_08": "nitrogen_sample_std",
+    "lcc_n_09": "nitrogen_population_std",
+    "lcc_n_10": "nitrogen_sample_variance",
+    "lcc_n_11": "nitrogen_population_variance",
+    "lcc_n_12": "nitrogen_median"
+  },
+  "altitude_unit": "m",
+  "tabular_processing": "Original-scale values; no full-dataset standardization or feature selection applied.",
+  "unit_note": "Quality units are not recorded in the source metadata; no units are inferred. Contact the author for assay units and protocols. Weather and LCC/N values retain the source measurement conventions."
+}

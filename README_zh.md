@@ -1,36 +1,114 @@
 # 多模态茶叶品质预测
 
-本仓库与我们关于多模态茶叶品质预测的论文相关。
+[English](README.md) | 简体中文
 
-## 仓库状态
+本次公开研究中使用的 **2、3、4 三个茶园的处理后数据**，以及数据读取、完整性校验和分组划分脚本。其余地区及更多研究数据可联系作者获取。
 
-本研究所使用的数据集和源代码目前暂未公开，因为相关论文仍处于审稿或出版流程中。为保证论文评审过程的完整性，并保护尚未正式发表的研究数据，完整数据、代码、模型文件和实验脚本将在论文正式发表后于本仓库公开。
+## 公开范围
 
-## 计划公开内容
+| 茶园编号 | 数据标识 | 样本数 |
+| --- | --- | ---: |
+| 2 | `2_MH_guangjingmeng` | 3 |
+| 3 | `3_MH_mangda` | 5 |
+| 4 | `4_MH_8haoshuiku` | 5 |
+| 合计 | 3 个茶园 | 13 |
 
-论文发表后，本仓库将更新并公开以下内容：
+每个样本包含研究使用的处理后输入与品质标签：
 
-- 用于模型训练、验证和测试的处理后数据集；
-- 数据预处理与特征提取脚本；
-- 模型训练与评估代码；
-- 用于结果复现的配置文件和实现细节；
-- 训练好的模型权重，或相应的获取说明；
-- 数据集结构、实验设置和使用流程说明文档。
+- 多光谱：已裁剪、统一尺寸的 `MSS.npy`，形状为 `(4, 45, 110)`，波段顺序为 **Green、NIR、Red、RedEdge**。
+- 叶片 RGB：`front_rgb_image.npy` 和 `back_rgb_image.npy`，形状均为 `(3, 224, 224)`，已按 ImageNet 均值和标准差归一化。
+- 数值特征：海拔 1 项、土壤 16 项、气象 6 项、叶绿素/氮素统计量 12 项。
+- 品质标签：30 项，顺序及名称见 [`schema.json`](data/processed/schema.json)。
 
-## 数据与代码可用性声明
+共发布 **39 个 `.npy` 数组文件**。多光谱保留处理后快照的数值原尺度；环境特征和品质标签也保留原尺度。公开包不含原始航拍文件、原始叶片照片、原始气象表、实验过程文件或其他茶园的数据。
 
-支持本研究结果的数据和代码将在相关论文正式发表后通过本仓库公开。在论文发表前，完整数据集和源代码的访问可能受到限制。如有合理的学术研究需求，可联系论文中的通讯作者或下方联系人咨询。
+## 文件组织
 
-## 单位与联系方式
+```text
+data/processed/
+├── samples.csv                 样本、数值特征、标签和数组相对路径
+├── schema.json                 字段顺序、名称、形状与处理说明
+├── manifest.json               公开范围、样本数和文件 SHA-256
+├── 2_MH_guangjingmeng/
+│   ├── Q01/
+│   │   ├── MSS.npy
+│   │   ├── front_rgb_image.npy
+│   │   └── back_rgb_image.npy
+│   └── ...
+├── 3_MH_mangda/
+└── 4_MH_8haoshuiku/
+scripts/
+├── dataset.py                  读取、校验与分组接口
+├── inspect_data.py             查看样本与数组信息
+├── make_splits.py              生成按茶园留出的示例划分
+└── export_processed.py         作者从本地处理后快照导出指定子集
+```
 
-**单位：** 云南农业大学 大数据学院  
-**联系人：** Guoquan Pei  
-**邮箱：** peiguoquan@outlook.com
+`samples.csv` 的 `sample_id` 保留原快照的样本标识，`region` 为茶园标识；数组路径相对于 `data/processed/`。CSV 编码为 UTF-8（带 BOM），行顺序与读取脚本返回顺序一致。数值列为 `soil_01..16`、`weather_01..06`、`lcc_n_01..12`、`altitude`、`quality_01..30`。
 
-## 引用方式
+## 快速使用
 
-如果您在论文发表后使用本仓库公开的数据或代码，请引用相关论文。正式论文发表后，我们将在此处补充完整的引用信息。
+使用 Python 3.9 或更新版本：
 
-## 许可证
+```bash
+git clone https://github.com/GuoquanPei/Multimodal-Tea-Quality-Prediction.git
+cd Multimodal-Tea-Quality-Prediction
+python -m pip install -r requirements.txt
+python scripts/inspect_data.py
+python scripts/make_splits.py --output outputs/garden_splits.json
+python -m unittest discover -s tests -v
+```
 
-数据集和代码正式公开时，将同步提供相应的许可证说明。在正式公开前，相关数据、代码和材料的所有权利由作者保留。
+读取单个多光谱文件：
+
+```python
+import numpy as np
+
+mss = np.load("data/processed/2_MH_guangjingmeng/Q01/MSS.npy", allow_pickle=False)
+print(mss.shape)  # (4, 45, 110)，通道在前
+```
+
+读取全部公开样本和标签：
+
+```python
+from scripts.dataset import load_dataset
+
+samples = load_dataset()  # 自动校验 SHA-256；13 个样本
+sample = samples[0]
+print(sample["sample_id"], sample["MSS"].shape, sample["quality"].shape)
+```
+
+公开数据读取不需要 PyTorch、pickle 或完整的本地研究项目。RGB 数组已归一化，请勿再次除以 255 或重复应用 ImageNet 归一化。显示时可用 `RGB = normalized * std + mean` 恢复到 `[0, 1]`，其中 `mean=[0.485,0.456,0.406]`、`std=[0.229,0.224,0.225]`，按通道广播。
+
+## 划分与使用边界
+
+`make_splits.py` 生成 3 折“每次留出一个茶园”的示例划分，输出基于 CSV 行顺序的训练/测试索引和样本标识。同一茶园不会同时进入训练集和测试集。标准化、PCA、特征筛选等拟合步骤应仅使用训练部分。
+
+本次公开的是 **处理后数据子集和数据工具**。三个茶园来自同一大区域，示例划分用于演示按茶园分组，不代表跨地理区域泛化测试，也不是论文原始划分。完整训练代码、全部地区、模型权重及原始数据未包含在本次公开中，该子集不能完整复现论文全部结果。
+
+数值特征和标签未新增全数据标准化，RGB 的固定 ImageNet 归一化属于已有图像处理。土壤名称和单位沿用源元数据；品质标签单位未记录在当前元数据中，在 `schema.json` 标为 `null`，检测单位与测定流程请联系作者确认。
+
+## 作者侧导出
+
+可选导出脚本仅读取作者本地可信的 `Data_T_all.pkl` 和 `Data_Meta_Info.pkl`，固定选择上述三个茶园。输出目录须为空；脚本不重新抽取原始影像或重新计算处理后数组。
+
+```bash
+python -m pip install -r requirements-export.txt
+python scripts/export_processed.py --source /path/to/Data_T_all.pkl --metadata /path/to/Data_Meta_Info.pkl --output /path/to/new-export
+```
+
+仅作者侧导出使用 joblib 读取本地可信文件；普通使用者直接读取本仓库的 NPY/CSV 即可。
+
+## 数据与代码可用性
+
+上述三个茶园的处理后数据和配套数据脚本已在本仓库公开。**更多地区的数据、其他研究材料和进一步的数据获取需求，请联系作者**。来信请说明研究问题和需要的数据范围，作者将告知可提供的内容及获取方式。本说明不承诺尚未公开材料的提供时间或范围。
+
+**单位：** 云南农业大学 大数据学院
+
+**联系人：** Guoquan Pei
+
+**邮箱：** [peiguoquan@outlook.com](mailto:peiguoquan@outlook.com)
+
+## 引用与许可
+
+使用公开数据或脚本时，请注明本仓库及所使用的提交版本；论文正式发表后将在此补充完整引用信息。本仓库保留现有 [Apache-2.0 许可证](LICENSE)。

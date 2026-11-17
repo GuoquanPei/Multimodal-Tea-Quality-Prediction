@@ -1,36 +1,114 @@
 # Multimodal Tea Quality Prediction
 
-This repository is associated with our research paper on multimodal tea quality prediction.
+English | [简体中文](README_zh.md)
 
-## Repository Status
+This release provides **processed data from tea gardens 2, 3, and 4** used in our multimodal tea quality prediction research, together with data loading, integrity checking, and group-splitting utilities. Contact the author for additional regions and other research data.
 
-The dataset and source code used in this study are not publicly available at this stage because the related manuscript is currently under review or in the publication process. To ensure the integrity of the peer-review process and to protect unpublished research materials, the complete dataset, source code, model files, and experimental scripts will be released in this repository after the paper is officially published.
+## Public data
 
-## Planned Release
+| Garden | Identifier | Samples |
+| --- | --- | ---: |
+| 2 | `2_MH_guangjingmeng` | 3 |
+| 3 | `3_MH_mangda` | 5 |
+| 4 | `4_MH_8haoshuiku` | 5 |
+| Total | 3 tea gardens | 13 |
 
-After publication of the paper, this repository will be updated to include:
+Each sample contains processed inputs and quality labels used in the research:
 
-- Processed datasets used for model training, validation, and testing;
-- Data preprocessing and feature extraction scripts;
-- Model training and evaluation code;
-- Configuration files and implementation details required for result reproduction;
-- Trained model weights or instructions for obtaining them;
-- Documentation describing the dataset structure, experimental settings, and usage workflow.
+- **Multispectral:** cropped and resized `MSS.npy`, shape `(4, 45, 110)`, in **Green, NIR, Red, RedEdge** band order.
+- **Leaf RGB:** processed `front_rgb_image.npy` and `back_rgb_image.npy`, each `(3, 224, 224)`, with ImageNet channel normalization already applied.
+- **Numerical inputs:** altitude (1), soil measurements (16), weather indices (6), and chlorophyll/nitrogen summary statistics (12).
+- **Quality labels:** 30 targets; their order and names are in [`schema.json`](data/processed/schema.json).
 
-## Data and Code Availability
+The release contains **39 `.npy` files**. Multispectral arrays retain their processed snapshot's original numerical scale; tabular inputs and quality labels also retain their original scales. Raw aerial imagery, original leaf photographs, source weather spreadsheets, intermediate experimental files, and other gardens are excluded.
 
-The data and code supporting the findings of this study will be made publicly available through this repository after the related paper is officially published. Before publication, access to the complete dataset and source code may be restricted. For reasonable academic research requests, please contact the corresponding author listed in the paper or the contact person below.
+## Layout
 
-## Affiliation and Contact
+```text
+data/processed/
+├── samples.csv                 Sample IDs, numerical inputs, labels, array paths
+├── schema.json                 Column order, names, shapes, processing notes
+├── manifest.json               Release scope and file SHA-256 checksums
+├── 2_MH_guangjingmeng/
+│   ├── Q01/
+│   │   ├── MSS.npy
+│   │   ├── front_rgb_image.npy
+│   │   └── back_rgb_image.npy
+│   └── ...
+├── 3_MH_mangda/
+└── 4_MH_8haoshuiku/
+scripts/
+├── dataset.py                  Loading, verification, and grouped splits
+├── inspect_data.py             Dataset summary and integrity checks
+├── make_splits.py              Demonstration garden-held-out folds
+└── export_processed.py         Author-side export from a local processed snapshot
+```
 
-**Affiliation:** College of Big Data, Yunnan Agricultural University  
-**Contact:** Guoquan Pei  
-**Email:** peiguoquan@outlook.com
+`sample_id` preserves the source identifier; `region` identifies the tea garden. Array paths are relative to `data/processed/`. The CSV uses UTF-8 with BOM; its row order is preserved by the loader. Numerical columns are `soil_01..16`, `weather_01..06`, `lcc_n_01..12`, `altitude`, and `quality_01..30`.
 
-## Citation
+## Quick start
 
-If you use the data or code released in this repository after publication, please cite the related paper. The complete citation information will be added here after the paper is officially published.
+Use Python 3.9 or later:
 
-## License
+```bash
+git clone https://github.com/GuoquanPei/Multimodal-Tea-Quality-Prediction.git
+cd Multimodal-Tea-Quality-Prediction
+python -m pip install -r requirements.txt
+python scripts/inspect_data.py
+python scripts/make_splits.py --output outputs/garden_splits.json
+python -m unittest discover -s tests -v
+```
 
-The license for the dataset and code will be provided when the materials are officially released. Before public release, all rights to the data, code, and related materials are reserved by the authors.
+Read one multispectral array:
+
+```python
+import numpy as np
+
+mss = np.load("data/processed/2_MH_guangjingmeng/Q01/MSS.npy", allow_pickle=False)
+print(mss.shape)  # (4, 45, 110), channels first
+```
+
+Read all public samples and labels:
+
+```python
+from scripts.dataset import load_dataset
+
+samples = load_dataset()  # SHA-256 verification included; 13 samples
+sample = samples[0]
+print(sample["sample_id"], sample["MSS"].shape, sample["quality"].shape)
+```
+
+Public data loading requires neither PyTorch nor pickle nor the full local research workspace. RGB arrays are already normalized: do not divide by 255 or apply ImageNet normalization again. For display, recover RGB in `[0, 1]` with `normalized * std + mean`, broadcasting `mean=[0.485,0.456,0.406]` and `std=[0.229,0.224,0.225]` over channels.
+
+## Splits and interpretation
+
+`make_splits.py` writes three demonstration folds, each holding out one entire tea garden. The output records train/test indices in CSV row order and aligned sample IDs. A garden never appears in both sets of a fold. Fit standardization, PCA, and feature selection on training samples only.
+
+This is a **processed subset and data-utility release**. The three gardens are in the same broader region; example folds demonstrate garden-level grouping, not cross-geographical-region generalization, and are not the paper's original splits. Full training code, all regions, model weights, and raw data are outside this release. This subset cannot reproduce all results in the paper.
+
+No new full-dataset normalization is applied to numerical inputs or quality labels. Fixed ImageNet normalization is part of the existing RGB processing. Soil names and units follow the source metadata. Quality units were not recorded in that metadata and are explicitly `null` in `schema.json`; contact the author for assay units and protocols.
+
+## Author-side export
+
+The optional exporter reads the author's trusted local `Data_T_all.pkl` and `Data_Meta_Info.pkl`, selects only the three gardens above, and requires an absent or empty output directory. It preserves processed arrays without resampling raw imagery.
+
+```bash
+python -m pip install -r requirements-export.txt
+python scripts/export_processed.py --source /path/to/Data_T_all.pkl --metadata /path/to/Data_Meta_Info.pkl --output /path/to/new-export
+```
+
+Only this author-side step uses joblib to read trusted local files. Public users can read the released NPY/CSV files directly.
+
+## Data and code availability
+
+The processed data for these three gardens and the accompanying data scripts are publicly available in this repository. **For additional regions, further research materials, or other data requests, please contact the author.** Include the intended research question and requested data scope; the author will explain what can be provided and how to obtain it. This notice does not guarantee the scope or timing of access to unreleased materials.
+
+**Affiliation:** College of Big Data, Yunnan Agricultural University
+
+**Contact:** Guoquan Pei
+
+**Email:** [peiguoquan@outlook.com](mailto:peiguoquan@outlook.com)
+
+## Citation and license
+
+Please acknowledge this repository and the commit used when reusing the public data or scripts. The complete paper citation will be added after publication. The repository retains its existing [Apache-2.0 license](LICENSE).
