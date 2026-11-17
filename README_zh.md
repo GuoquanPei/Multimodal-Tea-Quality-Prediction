@@ -80,24 +80,6 @@ print(sample["sample_id"], sample["MSS"].shape, sample["quality"].shape)
 
 公开数据读取不需要 PyTorch、pickle 或完整的本地研究项目。RGB 数组已归一化，请勿再次除以 255 或重复应用 ImageNet 归一化。显示时可用 `RGB = normalized * std + mean` 恢复到 `[0, 1]`，其中 `mean=[0.485,0.456,0.406]`、`std=[0.229,0.224,0.225]`，按通道广播。
 
-## 划分与使用边界
-
-`make_splits.py` 生成 3 折“每次留出一个茶园”的示例划分，输出基于 CSV 行顺序的训练/测试索引和样本标识。同一茶园不会同时进入训练集和测试集。标准化、PCA、特征筛选等拟合步骤应仅使用训练部分。
-
-本次公开的是 **处理后数据子集和数据工具**。三个茶园来自同一大区域，示例划分用于演示按茶园分组，不代表跨地理区域泛化测试，也不是论文原始划分。完整训练代码、全部地区、模型权重及原始数据未包含在本次公开中，该子集不能完整复现论文全部结果。
-
-数值特征和标签未新增全数据标准化，RGB 的固定 ImageNet 归一化属于已有图像处理。土壤名称和单位沿用源元数据；品质标签单位未记录在当前元数据中，在 `schema.json` 标为 `null`，检测单位与测定流程请联系作者确认。
-
-## 作者侧导出
-
-可选导出脚本仅读取作者本地可信的 `Data_T_all.pkl` 和 `Data_Meta_Info.pkl`，固定选择上述三个茶园。输出目录须为空；脚本不重新抽取原始影像或重新计算处理后数组。
-
-```bash
-python -m pip install -r requirements-export.txt
-python scripts/export_processed.py --source /path/to/Data_T_all.pkl --metadata /path/to/Data_Meta_Info.pkl --output /path/to/new-export
-```
-
-仅作者侧导出使用 joblib 读取本地可信文件；普通使用者直接读取本仓库的 NPY/CSV 即可。
 
 ## 数据与代码可用性
 
