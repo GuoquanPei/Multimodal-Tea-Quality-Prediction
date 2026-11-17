@@ -80,24 +80,6 @@ print(sample["sample_id"], sample["MSS"].shape, sample["quality"].shape)
 
 Public data loading requires neither PyTorch nor pickle nor the full local research workspace. RGB arrays are already normalized: do not divide by 255 or apply ImageNet normalization again. For display, recover RGB in `[0, 1]` with `normalized * std + mean`, broadcasting `mean=[0.485,0.456,0.406]` and `std=[0.229,0.224,0.225]` over channels.
 
-## Splits and interpretation
-
-`make_splits.py` writes three demonstration folds, each holding out one entire tea garden. The output records train/test indices in CSV row order and aligned sample IDs. A garden never appears in both sets of a fold. Fit standardization, PCA, and feature selection on training samples only.
-
-This is a **processed subset and data-utility release**. The three gardens are in the same broader region; example folds demonstrate garden-level grouping, not cross-geographical-region generalization, and are not the paper's original splits. Full training code, all regions, model weights, and raw data are outside this release. This subset cannot reproduce all results in the paper.
-
-No new full-dataset normalization is applied to numerical inputs or quality labels. Fixed ImageNet normalization is part of the existing RGB processing. Soil names and units follow the source metadata. Quality units were not recorded in that metadata and are explicitly `null` in `schema.json`; contact the author for assay units and protocols.
-
-## Author-side export
-
-The optional exporter reads the author's trusted local `Data_T_all.pkl` and `Data_Meta_Info.pkl`, selects only the three gardens above, and requires an absent or empty output directory. It preserves processed arrays without resampling raw imagery.
-
-```bash
-python -m pip install -r requirements-export.txt
-python scripts/export_processed.py --source /path/to/Data_T_all.pkl --metadata /path/to/Data_Meta_Info.pkl --output /path/to/new-export
-```
-
-Only this author-side step uses joblib to read trusted local files. Public users can read the released NPY/CSV files directly.
 
 ## Data and code availability
 
